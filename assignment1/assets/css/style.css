@@ -293,7 +293,9 @@ input[type=submit] {
 
 @media screen and (max-width: 640px) {
 
-
+.auth-image {
+    width: 100%;
+}
 #masthead {
 	margin: 0 0 10px;
 	position: static;
@@ -331,7 +333,7 @@ input[type=submit] {
 
 	nav a {
     line-height: 18px;
-    padding: 0px 50px 0 50px;
+    padding: 0px 9%;
     text-align: center;
 }
 	.work{
