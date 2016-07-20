@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hangman| Michelle Luo</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+  <header id="masthead">
+    <div class="container">
+      <a id="logo">HangMan Go!</a>
+    </div>
+  </header>
+
+<div id="body-container" class="container">
+  <section class="sidebar">
+      <div id="connect">
+         <h1>Let's Play</h1>
+        <img src="assets/images/xiaomai.jpg" class="auth-image" alt="Let's play!">
+      </div>
+  </section>
+  <section class="body-section">
+    <h1>Pree any key to get started!</h1>
+    <h2> Wins: </h2>
+    <h2> Michelle's Best Friend Name: </h2>
+    <p id="game"></p>
+        <form name="gameform">
+        <input name="userinput" type="text" size="5" maxlength="1">
+        <input name="ratebutton" type="button" value="Guess" onClick="runUserguess()">
+          <p id="guessLetters">Wrong Letters:</p>
+          <img src="http://www.writteninpencil.de/Projekte/Hangman/hangman0.png" id="hangman"><br />
+          <input name="refresh" type="button" value="New Game" onClick="location.reload()">
+          <p><h3>You have remaining <span id="max"></span></h3></p>
+          <form name="gameform">
+      </div>
+  </section>
+</div>
+
+<footer>
+    <div class="container">
+      &copy; Copyright 2016 Michelle Luo
+    </div>
+</footer>
+
+<script type="text/javascript">
+var option = [
+  ["J","A","C","K","Y"]
+  ["M", "I", "C", "H", "E", "L", "L", "E"],
+  ["I","R","E","N","E"],
+  ["S","H","I","R","L","E","Y"],
+  ["D","A","N","N","Y"],
+  ["H","A","R","R","Y",],
+  ["J","U","S","T","I","N"]
+]
+var random = Math.floor((Math.random()*(option.length-1))); 
+var words = option[random]; 
+var computerguess = new Array(words.length);
+for (var i = 0; i < computerguess.length; i++){
+  computerguess[i] = "_ ";}
+var moves = 0;
+var max = 5;
+
+function printComputerguess(){
+  for (var i = 0; i < computerguess.length; i++){
+  var game = document.getElementById("game");
+  var letters = document.createTextNode(computerguess[i]);
+  game.appendChild(letters);
+  }
+}
+
+var runUserguess = function(){
+  var f = document.gameform; 
+  var b = f.elements["userinput"]; 
+  var userguess = b.value; // the letter provided by the user
+  userguess = userguess.toUpperCase();
+  for (var i = 0; i < words.length; i++){
+    
+    if(words[i] === userguess){
+      computerguess[i] = userguess + " ";
+      var gamefalse = true;}else{
+    if(words[i] !== userguess){
+    }
+  }
+  b.value = "";
+  }
+  
+  //deletes the guessfield and replaces it with the new one
+  var game = document.getElementById("game");
+  game.innerHTML=""; 
+  printComputerguess();document.getElementById("max").innerHTML = "you are now remaining "+ max + " times";
+  
+  // if a guessed letter is not in the word, the letter will be put on the "wrong letters"-list and hangman grows
+  if(!gamefalse){
+
+    var guessLetters = document.getElementById("guessLetters");
+    var letters = document.createTextNode(" " + userguess);
+    guessLetters.appendChild(letters); 
+    moves++,max--;
+    var hangman = document.getElementById("hangman");
+    hangman.src = "http://www.writteninpencil.de/Projekte/Hangman/hangman" + moves + ".png";
+  }
+  
+  //checks if all letters have been found
+  var notification = true;
+  for (var i = 0; i < computerguess.length; i++){
+    if(computerguess[i] === "_ "){
+      notification = false;
+    }
+  }
+  if(notification){
+    window.alert("You Got it!Win!");
+  }
+  
+  //once you got six wrong letters, you lose
+  if(moves === 6){
+    window.alert("Uh...I guess you're dead now.");
+  }
+}
+
+function init(){
+  printComputerguess();
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
